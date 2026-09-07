@@ -529,32 +529,32 @@ if st.button("🔮 Predict Churn"):
         )
 
 
+        # =====================================================
+    # RISK LEVEL
     # =====================================================
-# RISK LEVEL
-# =====================================================
 
-st.subheader("⚠️ Risk Assessment")
+    st.subheader("⚠️ Risk Assessment")
 
-if churn_probability >= 70:
+    if churn_probability >= 70:
 
-    risk_level = "HIGH RISK"
-    st.error(
-        f"🔴 {risk_level} — Immediate retention action recommended."
-    )
+        risk_level = "HIGH RISK"
+        st.error(
+            f"🔴 {risk_level} — Immediate retention action recommended."
+        )
 
-elif churn_probability >= 40:
+    elif churn_probability >= 40:
 
-    risk_level = "MEDIUM RISK"
-    st.warning(
-        f"🟡 {risk_level} — Customer should be monitored."
-    )
+        risk_level = "MEDIUM RISK"
+        st.warning(
+            f"🟡 {risk_level} — Customer should be monitored."
+        )
 
-else:
+    else:
 
-    risk_level = "LOW RISK"
-    st.success(
-        f"🟢 {risk_level} — Customer is less likely to churn."
-    )
+        risk_level = "LOW RISK"
+        st.success(
+            f"🟢 {risk_level} — Customer is less likely to churn."
+        )
 
 
     # =====================================================
@@ -588,79 +588,74 @@ else:
 
 
     # =====================================================
-# CUSTOMER SUMMARY
-# =====================================================
+    # CUSTOMER SUMMARY
+    # =====================================================
 
-st.divider()
+    st.divider()
 
-st.subheader("📋 Customer Summary")
+    st.subheader("📋 Customer Summary")
 
-summary_col1, summary_col2, summary_col3, summary_col4 = st.columns(4)
+    summary_col1, summary_col2, summary_col3, summary_col4 = st.columns(4)
 
-with summary_col1:
+    with summary_col1:
+        st.metric(
+            "Tenure",
+            f"{tenure} months"
+        )
 
-    st.metric(
-        "Tenure",
-        f"{tenure} months"
+    with summary_col2:
+        st.metric(
+            "Monthly Charges",
+            f"${monthly_charges:.2f}"
+        )
+
+    with summary_col3:
+        st.metric(
+            "Contract",
+            contract
+        )
+
+    with summary_col4:
+        st.metric(
+            "Internet Service",
+            internet_service
+        )
+
+
+    # =====================================================
+    # CHURN PROBABILITY CHART
+    # =====================================================
+
+    st.subheader("📈 Churn Probability")
+
+    probability_data = pd.DataFrame(
+        {
+            "Risk": ["Churn", "Stay"],
+            "Probability": [
+                churn_probability,
+                100 - churn_probability
+            ]
+        }
     )
 
-with summary_col2:
+    chart_col1, chart_col2 = st.columns(2)
 
-    st.metric(
-        "Monthly Charges",
-        f"${monthly_charges:.2f}"
+    with chart_col1:
+        st.metric(
+            "Churn Probability",
+            f"{churn_probability:.2f}%"
+        )
+
+    with chart_col2:
+        st.metric(
+            "Stay Probability",
+            f"{100 - churn_probability:.2f}%"
+        )
+
+    st.bar_chart(
+        probability_data.set_index("Risk")
     )
 
-with summary_col3:
-
-    st.metric(
-        "Contract",
-        contract
-    )
-
-with summary_col4:
-
-    st.metric(
-        "Internet Service",
-        internet_service
-    )
-
-
-   # =====================================================
-# CHURN PROBABILITY CHART
-# =====================================================
-
-st.subheader("📈 Churn Probability")
-
-probability_data = pd.DataFrame(
-    {
-        "Risk": ["Churn", "Stay"],
-        "Probability": [
-            churn_probability,
-            100 - churn_probability
-        ]
-    }
-)
-
-chart_col1, chart_col2 = st.columns(2)
-
-with chart_col1:
-
-    st.metric(
-        "Churn Probability",
-        f"{churn_probability:.2f}%"
-    )
-
-with chart_col2:
-
-    st.metric(
-        "Stay Probability",
-        f"{100 - churn_probability:.2f}%"
-    )
-
-st.bar_chart(
-    probability_data.set_index("Risk")
-)
 # =========================================================
 # KEY INSIGHTS
 # =========================================================

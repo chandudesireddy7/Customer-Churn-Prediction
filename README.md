@@ -138,3 +138,16 @@ X_test_scaled = scaler.transform(X_test)
 model = LogisticRegression(max_iter=1000)
 
 model.fit(X_train_scaled, y_train)
+## 📸 Project Screenshots
+
+### Streamlit Application
+![Streamlit Application](images/app_home.png)
+
+### Churn Prediction
+![Churn Prediction](images/churn_prediction.png)
+
+### Risk Assessment
+![Risk Assessment](images/risk_assessment.png)
+
+### Project Overview
+![Project Overview](images/project_overview.png)

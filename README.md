@@ -151,3 +151,6 @@ model.fit(X_train_scaled, y_train)
 
 ### Project Overview
 ![Project Overview](images/project_overview.png)
+## 🚀 Live Demo
+
+👉 [Try the Customer Churn Prediction App](https://customer-churn-prediction-cb5owmzbyqhqejguheqsnq.streamlit.app/)

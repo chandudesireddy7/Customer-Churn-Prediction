@@ -282,21 +282,19 @@ Customers can continue to be monitored while maintaining good service quality.
 ## 📸 Project Screenshots
 
 ### Streamlit Application
-![Streamlit Application](https://raw.githubusercontent.com/chandudesireddy7/Customer-Churn-Prediction/main/images/app_home.png)
-
+![Streamlit Application](https://raw.githubusercontent.com/chandudesireddy7/Customer-Churn-Prediction/main/images/app_home.png.jpeg)
 
 ### Churn Prediction
 
-![Churn Prediction](https://raw.githubusercontent.com/chandudesireddy7/Customer-Churn-Prediction/main/images/churn_prediction.png)
+![Churn Prediction](https://raw.githubusercontent.com/chandudesireddy7/Customer-Churn-Prediction/main/images/churn_prediction.png.jpeg)
 
 ### Risk Assessment
 
-![Risk Assessment](https://raw.githubusercontent.com/chandudesireddy7/Customer-Churn-Prediction/main/images/risk_assessment.png)
+![Risk Assessment](https://raw.githubusercontent.com/chandudesireddy7/Customer-Churn-Prediction/main/images/risk_assessment.png.jpeg)
 
 ### Project Overview
 
-![Project Overview](https://raw.githubusercontent.com/chandudesireddy7/Customer-Churn-Prediction/main/images/project_overview.png)
-
+![Project Overview](https://raw.githubusercontent.com/chandudesireddy7/Customer-Churn-Prediction/main/images/project_overview.png.jpeg)
 ---
 
 ## 📁 Project Structure

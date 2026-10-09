@@ -324,18 +324,25 @@ st.markdown(
                     -4px -4px 14px rgba(255, 255, 255, 0.95) !important;
     }
 
-    /* Force sidebar button text always white and visible */
+    /* Sidebar button text: always white, fully visible, wraps properly */
     section[data-testid="stSidebar"] .stButton > button {
         color: #FFFFFF !important;
-        font-size: 0.88rem !important;
+        font-size: 0.83rem !important;
         font-weight: 700 !important;
-        padding: 0.55rem 0.9rem !important;
+        padding: 0.5rem 0.7rem !important;
+        white-space: normal !important;
+        word-break: break-word !important;
+        height: auto !important;
+        min-height: 38px !important;
+        line-height: 1.35 !important;
+        text-align: center !important;
     }
 
     section[data-testid="stSidebar"] .stButton > button p,
     section[data-testid="stSidebar"] .stButton > button span,
     section[data-testid="stSidebar"] .stButton > button div {
         color: #FFFFFF !important;
+        white-space: normal !important;
     }
     </style>
     """,
@@ -530,7 +537,6 @@ with st.sidebar:
         "Navigation Options:",
         PAGES,
         index=cur_idx,
-        key="nav_radio_bar",
         help="Select any section to navigate across the platform."
     )
     # Only trigger navigation when the user manually clicks the radio,
@@ -543,24 +549,17 @@ with st.sidebar:
     st.markdown('<div style="font-size: 0.72rem; font-weight: 800; color: #60A5FA; letter-spacing: 0.1em; text-transform: uppercase;">TEST PERSONAS</div>', unsafe_allow_html=True)
     st.caption("Autofill sample profiles:")
     
-    col_p1, col_p2 = st.columns(2)
-    with col_p1:
-        if st.button("🚨 High Risk", use_container_width=True, help="Autofills a high-risk profile: Month-to-month contract, fiber optic, electronic check, no tech support."):
-            apply_persona("🚨 High Churn Risk")
-            st.session_state["current_page"] = "📝 Customer Details Input"
-            st.session_state["nav_radio_bar"] = "📝 Customer Details Input"
-            st.rerun()
-    with col_p2:
-        if st.button("🛡️ Loyal VIP", use_container_width=True, help="Autofills a loyal profile: 5+ years tenure, two-year contract, auto-pay, bundled security suite."):
-            apply_persona("🛡️ Loyal VIP Customer")
-            st.session_state["current_page"] = "📝 Customer Details Input"
-            st.session_state["nav_radio_bar"] = "📝 Customer Details Input"
-            st.rerun()
-
+    if st.button("🚨 High Risk Customer", use_container_width=True, help="Autofills a high-risk profile: Month-to-month contract, fiber optic, electronic check, no tech support."):
+        apply_persona("🚨 High Churn Risk")
+        st.session_state["current_page"] = "📝 Customer Details Input"
+        st.rerun()
+    if st.button("🛡️ Loyal VIP Customer", use_container_width=True, help="Autofills a loyal profile: 5+ years tenure, two-year contract, auto-pay, bundled security suite."):
+        apply_persona("🛡️ Loyal VIP Customer")
+        st.session_state["current_page"] = "📝 Customer Details Input"
+        st.rerun()
     if st.button("⚖️ Moderate Risk Profile", use_container_width=True, help="Autofills an intermediate scenario: 1-year contract, fiber optic, partial service bundle."):
         apply_persona("⚖️ Moderate Risk")
         st.session_state["current_page"] = "📝 Customer Details Input"
-        st.session_state["nav_radio_bar"] = "📝 Customer Details Input"
         st.rerun()
 
     st.markdown("---")
@@ -580,7 +579,6 @@ with st.sidebar:
     )
     if st.button("📜 Open History Log", use_container_width=True, help="Navigate to the full Prediction History tab to review all past churn predictions."):
         st.session_state["current_page"] = "📜 Prediction History"
-        st.session_state["nav_radio_bar"] = "📜 Prediction History"
         st.rerun()
 
 
@@ -923,7 +921,6 @@ if st.session_state["current_page"] == "📝 Customer Details Input":
             save_to_history_file(st.session_state["prediction_history"])
 
             st.session_state["current_page"] = "📊 Prediction & Risk Graphs"
-            st.session_state["nav_radio_bar"] = "📊 Prediction & Risk Graphs"
             st.rerun()
 
 # =========================================================
@@ -1227,12 +1224,10 @@ elif st.session_state["current_page"] == "📊 Prediction & Risk Graphs":
     with nav_btn_c1:
         if st.button("⬅️ Edit Customer Details & Re-Calculate", use_container_width=True, help="Returns to Step 1 to modify customer attributes and calculate new predictions."):
             st.session_state["current_page"] = "📝 Customer Details Input"
-            st.session_state["nav_radio_bar"] = "📝 Customer Details Input"
             st.rerun()
     with nav_btn_c2:
         if st.button("📜 View Audit Log in Prediction History ➡️", use_container_width=True, help="Navigates to the historical predictions tab to review past scores."):
             st.session_state["current_page"] = "📜 Prediction History"
-            st.session_state["nav_radio_bar"] = "📜 Prediction History"
             st.rerun()
 
 # =========================================================

@@ -323,6 +323,20 @@ st.markdown(
         box-shadow: 8px 8px 22px rgba(37, 99, 235, 0.55),
                     -4px -4px 14px rgba(255, 255, 255, 0.95) !important;
     }
+
+    /* Force sidebar button text always white and visible */
+    section[data-testid="stSidebar"] .stButton > button {
+        color: #FFFFFF !important;
+        font-size: 0.88rem !important;
+        font-weight: 700 !important;
+        padding: 0.55rem 0.9rem !important;
+    }
+
+    section[data-testid="stSidebar"] .stButton > button p,
+    section[data-testid="stSidebar"] .stButton > button span,
+    section[data-testid="stSidebar"] .stButton > button div {
+        color: #FFFFFF !important;
+    }
     </style>
     """,
     unsafe_allow_html=True
@@ -519,6 +533,8 @@ with st.sidebar:
         key="nav_radio_bar",
         help="Select any section to navigate across the platform."
     )
+    # Only trigger navigation when the user manually clicks the radio,
+    # not when a programmatic rerun fires (both keys must differ)
     if selected_page != st.session_state["current_page"]:
         st.session_state["current_page"] = selected_page
         st.rerun()
@@ -532,30 +548,42 @@ with st.sidebar:
         if st.button("🚨 High Risk", use_container_width=True, help="Autofills a high-risk profile: Month-to-month contract, fiber optic, electronic check, no tech support."):
             apply_persona("🚨 High Churn Risk")
             st.session_state["current_page"] = "📝 Customer Details Input"
+            st.session_state["nav_radio_bar"] = "📝 Customer Details Input"
             st.rerun()
     with col_p2:
         if st.button("🛡️ Loyal VIP", use_container_width=True, help="Autofills a loyal profile: 5+ years tenure, two-year contract, auto-pay, bundled security suite."):
             apply_persona("🛡️ Loyal VIP Customer")
             st.session_state["current_page"] = "📝 Customer Details Input"
+            st.session_state["nav_radio_bar"] = "📝 Customer Details Input"
             st.rerun()
 
     if st.button("⚖️ Moderate Risk Profile", use_container_width=True, help="Autofills an intermediate scenario: 1-year contract, fiber optic, partial service bundle."):
         apply_persona("⚖️ Moderate Risk")
         st.session_state["current_page"] = "📝 Customer Details Input"
+        st.session_state["nav_radio_bar"] = "📝 Customer Details Input"
         st.rerun()
 
     st.markdown("---")
     hist_count = len(st.session_state["prediction_history"])
     st.markdown(
+        '<div style="font-size: 0.72rem; font-weight: 800; color: #60A5FA; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.4rem;">📜 PREDICTION HISTORY</div>',
+        unsafe_allow_html=True
+    )
+    st.markdown(
         f"""
-        <div style="background: rgba(30, 58, 138, 0.4); border: 1px solid rgba(59, 130, 246, 0.4); border-radius: 14px; padding: 0.9rem;">
-            <div style="font-size: 0.7rem; font-weight: 700; color: #93C5FD; text-transform: uppercase;">AUDIT HISTORY</div>
-            <div style="font-size: 0.95rem; font-weight: 700; color: #FFFFFF; margin: 0.2rem 0;">{hist_count} Records Logged</div>
-            <div style="font-size: 0.75rem; color: #E2E8F0;">View full audit logs in the <strong>📜 Prediction History</strong> tab.</div>
+        <div style="background: rgba(30, 58, 138, 0.4); border: 1px solid rgba(59, 130, 246, 0.4); border-radius: 14px; padding: 0.9rem; margin-bottom: 0.5rem;">
+            <div style="font-size: 0.95rem; font-weight: 700; color: #FFFFFF; margin: 0.2rem 0;">🗂️ {hist_count} Records Logged</div>
+            <div style="font-size: 0.75rem; color: #CBD5E1; margin-top: 0.25rem;">Full audit log of all predictions made in this session and past sessions.</div>
         </div>
         """,
         unsafe_allow_html=True
     )
+    if st.button("📜 Open History Log", use_container_width=True, help="Navigate to the full Prediction History tab to review all past churn predictions."):
+        st.session_state["current_page"] = "📜 Prediction History"
+        st.session_state["nav_radio_bar"] = "📜 Prediction History"
+        st.rerun()
+
+
 
 # =========================================================
 # TOP HERO BANNER (GLASS-NEOMORPHISM + CONTEXTUAL MEANING)
@@ -895,6 +923,7 @@ if st.session_state["current_page"] == "📝 Customer Details Input":
             save_to_history_file(st.session_state["prediction_history"])
 
             st.session_state["current_page"] = "📊 Prediction & Risk Graphs"
+            st.session_state["nav_radio_bar"] = "📊 Prediction & Risk Graphs"
             st.rerun()
 
 # =========================================================
@@ -1198,10 +1227,12 @@ elif st.session_state["current_page"] == "📊 Prediction & Risk Graphs":
     with nav_btn_c1:
         if st.button("⬅️ Edit Customer Details & Re-Calculate", use_container_width=True, help="Returns to Step 1 to modify customer attributes and calculate new predictions."):
             st.session_state["current_page"] = "📝 Customer Details Input"
+            st.session_state["nav_radio_bar"] = "📝 Customer Details Input"
             st.rerun()
     with nav_btn_c2:
         if st.button("📜 View Audit Log in Prediction History ➡️", use_container_width=True, help="Navigates to the historical predictions tab to review past scores."):
             st.session_state["current_page"] = "📜 Prediction History"
+            st.session_state["nav_radio_bar"] = "📜 Prediction History"
             st.rerun()
 
 # =========================================================
